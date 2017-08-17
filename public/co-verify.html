@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script src="https://cdn.auth0.com/js/auth0/8.7.0/auth0.min.js"></script>
+    <script type="text/javascript">
+      var AUTH0_CLIENT_ID='gLnmLMjTsB30MJFNb1xY9Y8FGNKEf498';
+      var AUTH0_DOMAIN='pse-addons.auth0.com';
+      var AUTH0_CALLBACK_URL=location.href;
+
+      var auth0 = new auth0.WebAuth({
+        domain: AUTH0_DOMAIN,
+        redirectUri: AUTH0_CALLBACK_URL,
+        clientID: AUTH0_CLIENT_ID,
+        responseType: 'code'
+      });
+      auth0.crossOriginAuthenticationCallback();
+    </script>
+  </head>
+  <body></body>
+</html>

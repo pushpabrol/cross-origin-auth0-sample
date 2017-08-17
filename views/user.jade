@@ -1,0 +1,30 @@
+extends layout
+
+block content
+  img(src="#{user.profile.picture}")
+  h2 Welcome #{user.profile.nickname}!
+  h3 Display Name: #{user.profile.displayName}
+  p
+    strong access_token
+    br
+    span #{user.extraParams.access_token}
+  p
+    strong id_token
+    br
+    span #{user.extraParams.id_token}
+  p
+    strong refresh_token
+    br
+    span #{user.extraParams.refresh_token}
+  br
+  p
+    strong apicall
+    br
+    span Hey #{apiData}
+  br
+  p
+  a(href='/user/apicall') API Call
+  p
+  a(href='/user/refresh') Refresh
+  p
+  a(href='https://hinerman.auth0.com/v2/logout?returnTo=https://nodeapp.userpools.com/logout') Log Out

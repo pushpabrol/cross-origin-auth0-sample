@@ -1,0 +1,18 @@
+extends layout
+
+block content
+  h1= title
+  p Welcome to the demo, please keep your hands and feet inside the vehicle at all times.
+  br
+  #msg
+  br
+  #loginform
+    | Username 
+    input(type="text", name="username", id="username" value="pushp.abrol@gmail.com")
+    br
+    | Password
+    input(type="password", name="password", id="password" value="pw")
+  br
+  button(onclick="signIn()") Login
+  br
+  button(onclick="checkSSO()") Check SSO
