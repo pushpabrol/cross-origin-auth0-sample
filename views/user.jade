@@ -1,30 +1,53 @@
 extends layout
 
 block content
-  img(src="#{user.profile.picture}")
-  h2 Welcome #{user.profile.nickname}!
-  h3 Display Name: #{user.profile.displayName}
-  p
-    strong access_token
-    br
-    span #{user.extraParams.access_token}
-  p
-    strong id_token
-    br
-    span #{user.extraParams.id_token}
-  p
-    strong refresh_token
-    br
-    span #{user.extraParams.refresh_token}
-  br
-  p
-    strong API Data
-    br
-    span #{apiData}
-  br
-  p
-  a(href='/user/apicall') API Call
-  p
-  a(href='/user/refresh') Refresh
-  p
-  a(href='https://pse-addons.auth0.com/v2/logout?client_id=gLnmLMjTsB30MJFNb1xY9Y8FGNKEf498&returnTo=https://atbpot.desmaximus.com/logout') Log Out
+  .container
+    .row
+      .col-md-6
+        img.img-fluid(src="#{user.profile.picture}")
+        h3 Welcome #{user.profile.nickname}!
+        p
+          button.btn.btn-link(type="button", data-toggle="collapse", data-target="#profile-info", aria-expanded="false", aria-controls="profile-info")
+            | Profile
+          .collapse(id="profile-info")
+            p(style="width: 500px")
+              strong Profile
+              br
+              pre
+              code
+                | #{JSON.stringify(user.profile, null, 2)}
+        p
+          button.btn.btn-link(type="button", data-toggle="collapse", data-target="#access-token-info", aria-expanded="false", aria-controls="access-token-info")
+            | Access Token
+          .collapse(id="access-token-info")
+            p
+              strong Access Token
+              br
+              span #{user.extraParams.access_token}
+        p
+          button.btn.btn-link(type="button", data-toggle="collapse", data-target="#id-token-info", aria-expanded="false", aria-controls="id-token-info")
+            | ID Token
+          .collapse(id="id-token-info")
+            p
+              strong ID Token
+              br
+              span #{user.extraParams.id_token}
+        p
+          button.btn.btn-link(type="button", data-toggle="collapse", data-target="#rt-token-info", aria-expanded="false", aria-controls="rt-token-info")
+            | Refresh Token
+          .collapse(id="rt-token-info")
+            p
+              strong Refresh Token
+              br
+              span #{user.extraParams.refresh_token}        
+        p
+          strong API Data
+          br
+          span #{JSON.stringify(apiData,null,2)}
+    .row
+      .col-md-6.text-right
+        .btn-group.btn-group-small
+          a.btn.btn-primary.mr-2(href='/user/apicall') API Call
+          a.btn.btn-secondary.mr-2(href='/user/refresh') Refresh
+          button.btn.btn-secondary.mr-2(onclick="checkSSO()") Renew Auth
+          a.btn.btn-danger(href='/user/logout') Log Out

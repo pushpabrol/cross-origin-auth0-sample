@@ -1,0 +1,5 @@
+# Optional npm cache directory
+.npm
+.env
+node_modules/
+

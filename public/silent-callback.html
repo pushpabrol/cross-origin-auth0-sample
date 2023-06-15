@@ -4,13 +4,13 @@
     <script src="https://cdn.auth0.com/js/auth0/8.7.0/auth0.min.js"></script>
     <script type="text/javascript">
       var auth0 = new auth0.WebAuth({
-        domain: 'pse-addons.auth0.com',
-        clientID: 'gLnmLMjTsB30MJFNb1xY9Y8FGNKEf498'
+        domain: 'auth-sentry.desmaximus.com',
+        clientID: 'ba5ldj34BkyXZiXy4VWOz5wZVizdGOBL'
       });
       auth0.parseHash(window.location.hash, function (err, result) {
         console.log('result: ' + JSON.stringify(result));
         console.log('err: ' + JSON.stringify(err));
-        parent.postMessage(err || result, 'https://atbpot.desmaximus.com/callback');
+        parent.postMessage(err || result, 'https://localhost/callback');
       });
     </script>
   </head>

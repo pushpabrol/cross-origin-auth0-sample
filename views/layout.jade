@@ -3,20 +3,57 @@ html
   head
     title= title
     script(src="https://cdn.auth0.com/js/auth0/8.7.0/auth0.min.js")
+    link(href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css", rel="stylesheet")
+    style.
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #f3f1f1;
+        margin: 0;
+        padding: 10px;
+        display: block;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        max-width: 600px;
+
+      }
+      
+      .container {
+        max-width: 400px;
+        margin: 0 auto;
+        padding-top: 100px;
+      }
+      
+      h1 {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      
+      .form-group label {
+        font-weight: bold;
+      }
+      
+      #msg {
+        text-align: center;
+        margin-bottom: 20px;
+      }
+      
+      .btn-block {
+        margin-top: 20px;
+      }
   body
     block content
 
   script.
     var webAuth = new auth0.WebAuth({
-      domain:       '#{env.AUTH0_DOMAIN}',
-      clientID:     '#{env.AUTH0_CLIENT_ID}',
-      callbackURL:  '#{env.AUTH0_CALLBACK_URL}'
+      domain: '#{env.AUTH0_DOMAIN}',
+      clientID: '#{env.AUTH0_CLIENT_ID}',
+      callbackURL: '#{env.BASE_URL}#{env.AUTH0_CALLBACK_URL}'
     });
-
     function checkSSO() {
       webAuth.renewAuth({
         responseType: 'id_token',
-        redirectUri: '#{env.AUTH0_SILENT_CALLBACK_URL}',
+        redirectUri: '#{env.BASE_URL}#{env.AUTH0_SILENT_CALLBACK_URL}',
         usePostMessage: true
       }, function (err, authResult) {
         if (authResult) {
@@ -31,24 +68,24 @@ html
     }
 
     function sso() {
-       webAuth.authorize({
+      webAuth.authorize({
         realm: 'Username-Password-Authentication',
-        redirectUri: '#{env.AUTH0_CALLBACK_URL}',
+        redirectUri: '#{env.BASE_URL}#{env.AUTH0_CALLBACK_URL}',
         responseType: 'code',
-        audience: 'http://todoapi2.api',
-        scope: 'openid profile read:todo offline_access',
+        audience: 'organise',
+        scope: 'openid profile read:calendar offline_access',
         state: 'foobar',
         prompt: 'none'
       });
     }
 
     function signIn() {
-       webAuth.login({
+      webAuth.login({
         realm: 'Username-Password-Authentication',
-        redirectUri: '#{env.AUTH0_CALLBACK_URL}',
+        redirectUri: '#{env.BASE_URL}#{env.AUTH0_CALLBACK_URL}',
         responseType: 'code',
-        audience: 'http://todoapi2.api',
-        scope: 'openid profile read:todo offline_access',
+        audience: 'organise',
+        scope: 'openid profile read:calendar offline_access',
         state: 'foobar',
         username: document.getElementById('username').value,
         password: document.getElementById('password').value

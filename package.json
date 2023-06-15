@@ -9,19 +9,19 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "body-parser": "^1.15.2",
+    "body-parser": "^1.20.2",
     "connect-ensure-login": "^0.1.1",
-    "cookie-parser": "^1.4.3",
-    "debug": "^2.6.8",
+    "cookie-parser": "^1.4.6",
+    "debug": "^2.6.9",
     "dotenv": "^2.0.0",
-    "express": "^4.14.0",
-    "express-session": "^1.14.1",
+    "express": "^4.18.2",
+    "express-session": "^1.17.3",
     "jade": "^1.11.0",
-    "morgan": "^1.7.0",
+    "morgan": "^1.10.0",
     "passport": "^0.3.2",
     "passport-auth0": "^0.5.2",
-    "request": "^2.81.0",
-    "selfsigned": "^1.9.1"
+    "request": "^2.88.2",
+    "selfsigned": "^1.10.14"
   },
   "now": {
     "files": [

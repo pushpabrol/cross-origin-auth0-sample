@@ -5,20 +5,22 @@ var session = require('express-session');
 var dotenv = require('dotenv');
 var passport = require('passport');
 var Auth0Strategy = require('passport-auth0');
+
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 
 dotenv.load();
 
+dotenv.config();
+
 var routes = require('./routes/index');
 var user = require('./routes/user');
-
 
 // This will configure Passport to use Auth0
 var strategy = new Auth0Strategy({
     domain:       process.env.AUTH0_DOMAIN,
     clientID:     process.env.AUTH0_CLIENT_ID,
     clientSecret: process.env.AUTH0_CLIENT_SECRET,
-    callbackURL:  process.env.AUTH0_CALLBACK_URL
+    callbackURL:  `${process.env.BASE_URL}${process.env.AUTH0_CALLBACK_URL}`
   }, function(accessToken, refreshToken, extraParams, profile, done) {
     
 	console.log(extraParams);
@@ -105,7 +107,9 @@ app.use(function(err, req, res, next) {
   });
 });
 
+/* 
 app.listen(process.env.PORT, function () {
   console.log('Example app listening on port 3000!')
 })
-//module.exports = app;
+*/
+module.exports = app;

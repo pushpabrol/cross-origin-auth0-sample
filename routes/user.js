@@ -17,25 +17,32 @@ router.get('/', ensureLoggedIn, function(req, res, next) {
 apiData = null;
 });
 
+router.get("/logout",function(req, res, next) {
+  res.redirect(`https://${process.env.AUTH0_DOMAIN}/v2/logout?client_id=${process.env.AUTH0_CLIENT_ID}&returnTo=${process.env.BASE_URL}`)
+} )
+
 router.get('/apicall', ensureLoggedIn, function(req, res, next) {
   
   // invoke diag endpoint with authn header
+  console.log(req.user);
+  console.log(process.env.API_BASE_URL);
     var options = {
-      url: 'https://atbpotapi.desmaximus.com/api/private',
+      url: `${process.env.API_BASE_URL}/api/user/${req.user.profile.email ||req.user.profile.displayName }/roles`,
       headers: {
         'Authorization': 'Bearer ' + req.user.extraParams.access_token
       }
     };
 
     request(options, function(error, response, body) {
-	console.log(error);
-	console.log(body);
+	  console.log(error);
+    if(error) throw error;
+	  console.log(body);
       if (response.statusCode === 401) {
         // need a refresh token
         return res.redirect('/user/refresh');
       }
       
-      apiData = JSON.parse(body).message;
+      apiData = JSON.parse(body);
       return res.redirect('/user');
     });
 
@@ -63,7 +70,7 @@ function getRefreshToken(req, cb) {
       client_id: `${process.env.AUTH0_CLIENT_ID}`,
       client_secret: `${process.env.AUTH0_CLIENT_SECRET}`,
       refresh_token: req.user.extraParams.refresh_token,
-      redirect_uri: `${process.env.AUTH0_CALLBACK_URL}` 
+      redirect_uri: `${process.env.BASE_URL}${process.env.AUTH0_CALLBACK_URL}`
     }, 
     json: true 
   };

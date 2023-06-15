@@ -1,18 +1,20 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to the demo, please keep your hands and feet inside the vehicle at all times.
-  br
-  #msg
-  br
-  #loginform
-    | Username 
-    input(type="text", name="username", id="username" value="pushp.abrol@gmail.com")
+  .container
+    h1= title
+    p Welcome to the demo, please keep your hands and feet inside the vehicle at all times.
     br
-    | Password
-    input(type="password", name="password", id="password" value="pw")
-  br
-  button(onclick="signIn()") Login
-  br
-  button(onclick="checkSSO()") Check SSO
+    #msg
+    br
+    form#loginform
+      .form-group
+        label(for="username") Username
+        input#username.form-control(type="text", name="username", value="pushp.abrol@gmail.com")
+      .form-group
+        label(for="password") Password
+        input#password.form-control(type="password", name="password", value="Auth0Dem0")
+      br
+      button.btn.btn-primary.btn-block(type="button", onclick="signIn()") Login
+      br
+      button.btn.btn-secondary.btn-block(type="button", onclick="checkSSO()") Check SSO

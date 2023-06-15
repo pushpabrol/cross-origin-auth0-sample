@@ -15,13 +15,13 @@ var selfsigned = require('selfsigned');
  */
 
 var port = normalizePort(process.env.PORT || '3000');
-app.set('port', port);
+//app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 function createHttpsServer(app) {
-  var attrs = [{ name: 'commonName', value: 'myapp.com' }];
+  var attrs = [{ name: 'commonName', value: 'localhost' }];
   var certificate = selfsigned.generate(attrs, { days: 365 });
   var options = { key: certificate.private, cert: certificate.cert };
   return https.createServer(options, app);
@@ -33,9 +33,20 @@ var server = (process.env.SECURE) ? createHttpsServer(app) : http.createServer(a
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
+
 server.on('error', onError);
-server.on('listening', onListening);
+//server.on('listen', onListening);
+
+function onListening() {
+  var addr = server.address();
+  var bind = typeof addr === 'string'
+    ? 'pipe ' + addr
+    : 'port ' + addr.port;
+  debug('Listening on ' + bind);
+  console.log('Listening on ' + bind);
+}
+
+server.listen(port, onListening);
 
 /**
  * Normalize a port into a number, string, or false.
@@ -89,11 +100,4 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
-  var addr = server.address();
-  var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
-  debug('Listening on ' + bind);
-  console.log('Listening on ' + bind);
-}
+
