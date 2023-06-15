@@ -14,6 +14,7 @@ router.get('/', ensureLoggedIn, function(req, res, next) {
     apiData: apiData,
     title: 'NodeJS Cross-origin Auth Demo'
   });
+apiData = null;
 });
 
 router.get('/apicall', ensureLoggedIn, function(req, res, next) {
